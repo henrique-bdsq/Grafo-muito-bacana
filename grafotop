@@ -1,0 +1,71 @@
+class Grafodiferenciado:
+    def __init__(self):
+        self.grafodiferenciado = {}
+
+    # Função para adicionar uma aresta ao grafo (não-direcionado)
+    def adicionar_aresta(self, origem, destino):
+        # Adiciona a aresta de origem para destino
+        if origem not in self.grafodiferenciado:
+            self.grafodiferenciado[origem] = []
+        self.grafodiferenciado[origem].append(destino)
+
+        # Como o grafo é não-direcionado, adiciona a aresta de destino para origem
+        if destino not in self.grafodiferenciado:
+            self.grafodiferenciado[destino] = []
+        self.grafodiferenciado[destino].append(origem)
+
+    # Função para exibir o grafo
+    def exibir_grafo(self):
+        for vertice in self.grafodiferenciado:
+            print(f"{vertice} -> {' -> '.join(map(str, self.grafodiferenciado[vertice]))}")
+
+# Exemplo de uso
+if __name__ == "__main__":
+    # Criação do grafo
+    grafo = Grafodiferenciado()
+
+    # Adicionando arestas
+    grafo.adicionar_aresta(1, 2)
+    grafo.adicionar_aresta(1, 4)
+    grafo.adicionar_aresta(1, 6)
+    grafo.adicionar_aresta(1, 7)
+    grafo.adicionar_aresta(1, 8)
+    grafo.adicionar_aresta(1, 9)
+    grafo.adicionar_aresta(3, 4)
+    grafo.adicionar_aresta(3, 8)
+    grafo.adicionar_aresta(3, 9)
+    grafo.adicionar_aresta(4, 9)
+    grafo.adicionar_aresta(4, 6)
+    grafo.adicionar_aresta(8, 9)
+    grafo.adicionar_aresta(2, 6)
+    grafo.adicionar_aresta(2, 7)
+    grafo.adicionar_aresta(2, 5)
+    grafo.adicionar_aresta(5, 6)
+    grafo.adicionar_aresta(5, 7)
+    grafo.adicionar_aresta(7, 8)
+
+    # Exibindo o grafo
+    grafo.exibir_grafo()
+
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# Função para desenhar o grafo
+def desenhar_grafo(arestas):
+    # Criação do grafo
+    G = nx.Graph()
+
+    # Adicionando as arestas
+    G.add_edges_from(arestas)
+
+    # Desenhando o grafo
+    pos = nx.spring_layout(G)  # layout para uma disposição visual mais clara
+    nx.draw(G, pos, with_labels=True, node_color='purple', node_size=3000, font_size=15, font_color='white', font_weight='bold', edge_color='gray')
+    plt.title("Grafo diferente 100%")
+    plt.show()
+
+# Definição das arestas
+arestas = [(1, 2), (1, 4), (1, 6), (1, 7), (1, 8), (1, 9), (3, 4), (3, 8), (3, 9), (4, 9), (4, 6), (8, 9), (2, 6), (2, 7), (2, 5), (5, 6), (5, 7), (7, 8)]
+
+# Chamando a função para desenhar o grafo
+desenhar_grafo(arestas)
